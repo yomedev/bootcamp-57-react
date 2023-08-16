@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// const paragraph = createElement("p", null, "Home")
+// const link = createElement(
+//   "a",
+//   { href: "/", alt: "home" },
+//   paragraph
+// );
+// console.log("createElement: ", link);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// const link = <a href="/" alt="home">Home</a>
+
+// function Link({ href, alt, text }) {
+//   return (
+//     <a href={href} alt={alt}>
+//       {text}
+//     </a>
+//   );
+// }
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<App />);
+
+// root.render(link({ alt: "home", text: "About", href: "/" }));
+
+// const link2 = <a href="/" alt="home">Home</a>
+
+// console.log("jsx: ", link2);
+
+// { href: "/", alt: "home", children: 'Home' }
