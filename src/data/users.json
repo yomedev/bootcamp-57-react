@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "firstName": "Terry",
+    "lastName": "Medhurst",
+    "age": 50,
+    "gender": "male",
+    "email": "atuny0@sohu.com",
+    "phone": "+63 791 675 8914",
+    "username": "atuny0",
+    "image": null,
+    "isOnline": true
+  },
+  {
+    "id": 2,
+    "firstName": "Sheldon",
+    "lastName": "Quigley",
+    "age": 28,
+    "gender": "male",
+    "email": "hbingley1@plala.or.jp",
+    "phone": "+7 813 117 7139",
+    "username": "hbingley1",
+    "image": "https://robohash.org/doloremquesintcorrupti.png",
+    "isOnline": true
+  },
+  {
+    "id": 3,
+    "firstName": "Terrill",
+    "lastName": "Hills",
+    "age": 38,
+    "gender": "male",
+    "email": "rshawe2@51.la",
+    "phone": "+63 739 292 7942",
+    "username": "rshawe2",
+    "image": "https://robohash.org/consequunturautconsequatur.png",
+    "isOnline": false
+  },
+  {
+    "id": 4,
+    "firstName": "Miles",
+    "lastName": "Cummerata",
+    "age": 49,
+    "gender": "male",
+    "email": "yraigatt3@nature.com",
+    "phone": "+86 461 145 4186",
+    "username": "yraigatt3",
+    "image": "https://robohash.org/facilisdignissimosdolore.png",
+    "isOnline": true
+  },
+  {
+    "id": 5,
+    "firstName": "Mavis",
+    "lastName": "Schultz",
+    "age": 38,
+    "gender": "male",
+    "email": "kmeus4@upenn.edu",
+    "phone": "+372 285 771 1911",
+    "username": "kmeus4",
+    "image": "https://robohash.org/adverovelit.png",
+    "isOnline": false
+  }
+]
