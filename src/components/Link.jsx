@@ -7,3 +7,9 @@ const Link = ({ href, alt, text }) => {
 };
 
 export default Link;
+
+function sum(a, b) {
+  return a + b
+}
+
+sum(2, 4)
