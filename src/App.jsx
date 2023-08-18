@@ -1,6 +1,8 @@
-import Link from "./components/Link";
+import Link from "./components/Link/Link";
 import UsersList from "./components/UsersList";
 import usersJson from "./data/users.json";
+import Button from "./components/Button/Button";
+import {AiFillCloseCircle} from 'react-icons/ai'
 
 const title = null;
 
@@ -11,8 +13,11 @@ const title = null;
 
 const App = () => {
   console.log("App");
+
   return (
     <>
+      <Button alert>Close <AiFillCloseCircle /></Button>
+      <Button primary>Open</Button>
       <Link alt="home" href="/" text="Home" />
       <br />
       <Link alt="about" href="/about" text="About" />

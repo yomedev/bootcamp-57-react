@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 import Header from "./Header";
-import UserItem from "./UserItem";
+import UserItem from "./UserItem/UserItem";
 
 const UsersList = ({ users, title }) => {
   console.log(users);

@@ -1,0 +1,16 @@
+.link {
+  color: red;
+  text-decoration: none;
+}
+
+.base {
+  font-size: 20px;
+}
+
+.online {
+  color: green;
+}
+
+.offline {
+  color: red;
+}
