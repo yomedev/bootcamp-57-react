@@ -1,42 +1,53 @@
-import Link from "./components/Link/Link";
-import UsersList from "./components/UsersList";
-import usersJson from "./data/users.json";
-import Button from "./components/Button/Button";
-import {AiFillCloseCircle} from 'react-icons/ai'
+import { Component } from "react";
+import { Cart } from "./components/Cart";
+import { Header, Layout } from "./components/Layout";
+import { Modal } from "./components/Modal";
+import { ProductsList } from "./components/Products/ProductsList";
 
-const title = null;
+export default class App extends Component {
+  state = {
+    isModalShow: false,
+  };
 
-// title && "No header" =>
-// title || 'No header' => 'No header'
+  handleModalShow = () => {
+    this.setState({ isModalShow: true });
+  };
 
-// const usersJson = [];
+  handleModalClose = () => {
+    this.setState({ isModalShow: false });
+  };
 
-const App = () => {
-  console.log("App");
+  render() {
+    const { isModalShow } = this.state;
+    return (
+      <Layout>
+        <Header>Hello world</Header>
+        {isModalShow && (
+          <Modal onModalClose={this.handleModalClose}>
+            <Cart defaultCounter={4} />
+          </Modal>
+        )}
+        <ProductsList onModalShow={this.handleModalShow} />
+      </Layout>
+    );
+  }
+}
 
-  return (
-    <>
-      <Button alert>Close <AiFillCloseCircle /></Button>
-      <Button primary>Open</Button>
-      <Link alt="home" href="/" text="Home" />
-      <br />
-      <Link alt="about" href="/about" text="About" />
-      {!!usersJson.length && <UsersList title={title} users={usersJson} />}
-    </>
-  );
-};
 
-// Header({ title: title})
 
-// function sum(a, b) {
-//   return a + getRandomNumber(b)
-// }
+// const App = () => {
 
-// function getRandomNumber(num) {
-//   return num
-// }
+//   const handleModalShow = () => {
+//     isModalShow = true
+//   }
 
-// sum(4, 12)
+//   return (
+//     <Layout>
+//       <Header>Hello world</Header>
+//       {isModalShow && <Modal><Cart defaultCounter={4} /></Modal>}
+//       <ProductsList />
+//     </Layout>
+//   );
+// };
 
-// Link({ alt: "home", href: "/", tetx: "Home" });
-export default App;
+// export default App;
