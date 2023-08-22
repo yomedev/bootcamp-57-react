@@ -1,53 +1,18 @@
-import { Component } from "react";
-import { Cart } from "./components/Cart";
 import { Header, Layout } from "./components/Layout";
-import { Modal } from "./components/Modal";
-import { ProductsList } from "./components/Products/ProductsList";
+// import { LoginForm } from "./components/LoginForm";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { Products } from "./components/Products/Products";
 
-export default class App extends Component {
-  state = {
-    isModalShow: false,
-  };
+const App = () => {
+  return (
+    <Layout>
+      <Header>Hello world</Header>
+      {/* <LoginForm /> */}
+      <Products />
+      <ToastContainer />
+    </Layout>
+  );
+};
 
-  handleModalShow = () => {
-    this.setState({ isModalShow: true });
-  };
-
-  handleModalClose = () => {
-    this.setState({ isModalShow: false });
-  };
-
-  render() {
-    const { isModalShow } = this.state;
-    return (
-      <Layout>
-        <Header>Hello world</Header>
-        {isModalShow && (
-          <Modal onModalClose={this.handleModalClose}>
-            <Cart defaultCounter={4} />
-          </Modal>
-        )}
-        <ProductsList onModalShow={this.handleModalShow} />
-      </Layout>
-    );
-  }
-}
-
-
-
-// const App = () => {
-
-//   const handleModalShow = () => {
-//     isModalShow = true
-//   }
-
-//   return (
-//     <Layout>
-//       <Header>Hello world</Header>
-//       {isModalShow && <Modal><Cart defaultCounter={4} /></Modal>}
-//       <ProductsList />
-//     </Layout>
-//   );
-// };
-
-// export default App;
+export default App;

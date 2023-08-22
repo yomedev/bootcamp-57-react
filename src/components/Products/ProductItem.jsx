@@ -1,6 +1,20 @@
+import clsx from "clsx";
 import { FaTrash } from "react-icons/fa6";
 
-export const ProductItem = ({ id, title, price, stock, brand, thumbnail, onModalShow, onDeleteProduct }) => {
+export const ProductItem = ({
+  id,
+  title,
+  price,
+  stock,
+  brand,
+  thumbnail,
+  onModalShow,
+  onDeleteProduct,
+}) => {
+
+  const handleDelete = () => {
+    onDeleteProduct(id)
+  }
   return (
     <div className="card shadow-sm mb-4">
       <div className="card-body">
@@ -20,17 +34,34 @@ export const ProductItem = ({ id, title, price, stock, brand, thumbnail, onModal
             </div>
           </div>
           <div className="d-flex flex-row align-items-center">
-            <div style={{ width: "50px" }}>
-              <h5 className="fw-normal mb-0">{stock}</h5>
+            <div style={{ width: "80px" }}>
+              <h5
+                style={{ fontSize: 14 }}
+                className={clsx("fw-normal mb-0 me-4", {
+                  "text-success": stock > 5,
+                  "text-warning": stock < 5 && stock > 0,
+                  "text-danger": stock === 0,
+                })}
+              >
+                {stock === 0
+                  ? "Out of stock"
+                  : stock < 5
+                  ? "Few left"
+                  : "In stock"}
+              </h5>
             </div>
             <div style={{ width: "80px" }}>
               <h5 className="mb-0">${price}</h5>
             </div>
-            <button onClick={onModalShow} type="button" className="btn btn-primary btn-lg me-4">
+            <button
+              onClick={onModalShow}
+              type="button"
+              className="btn btn-primary btn-lg me-4"
+            >
               Add to cart
             </button>
             <button
-            onClick={() => onDeleteProduct(id)}
+              onClick={handleDelete}
               type="button"
               style={{ backgroundColor: "transparent", border: "none" }}
             >
