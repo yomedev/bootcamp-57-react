@@ -6,28 +6,42 @@ import productsJson from "../../data/products.json";
 import { ProductsList } from "./ProductsList";
 import { Modal } from "../Modal/Modal";
 import { Cart } from "../Cart/Cart";
+import { FiPlus } from "react-icons/fi";
+
+const PRODUCTS_LOCALSTORAGE_KEY = "products";
 
 export class Products extends Component {
   state = {
-    products: productsJson,
+    products: [],
     isModalShow: false,
     isInStock: false,
     category: "",
     search: "",
-
-    // filters: {
-    //   isInStock: false,
-    //   category: "",
-    //   search: "",
-    // },
   };
+
+  modalProduct = null;
+
+  componentDidMount() {
+    const localData = JSON.parse(
+      localStorage.getItem(PRODUCTS_LOCALSTORAGE_KEY)
+    );
+    if (localData || localData?.length) {
+      this.setState({ products: localData });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.products.length !== this.state.products.length) {
+      localStorage.setItem(
+        PRODUCTS_LOCALSTORAGE_KEY,
+        JSON.stringify(this.state.products)
+      );
+    }
+  }
 
   handleChangeSearch = (event) => {
     const { value } = event.target;
     this.setState({ search: value });
-    // this.setState((prevState) => ({
-    //   filters: { ...prevState.filters, search: value },
-    // }));
   };
 
   handleResetSearch = () => {
@@ -43,8 +57,9 @@ export class Products extends Component {
     this.setState((prevState) => ({ isInStock: !prevState.isInStock }));
   };
 
-  handleModalShow = () => {
+  handleModalShow = (productId) => {
     this.setState({ isModalShow: true });
+    this.modalProduct = this.state.products.find(({ id }) => id === productId);
   };
 
   handleModalClose = () => {
@@ -54,6 +69,16 @@ export class Products extends Component {
   handleDeleteProduct = (productId) => {
     this.setState((prevState) => ({
       products: prevState.products.filter(({ id }) => id !== productId),
+    }));
+  };
+
+  handleAddProduct = () => {
+    const randomIndex = Math.floor(Math.random() * productsJson.length);
+    this.setState((prevState) => ({
+      products: [
+        { ...productsJson[randomIndex], id: Date.now() },
+        ...prevState.products,
+      ],
     }));
   };
 
@@ -84,6 +109,13 @@ export class Products extends Component {
             category={category}
             onChangeCategory={this.handleChangeCategory}
           />
+          <button
+            type="button"
+            className="btn btn-primary btn-lg ms-auto"
+            onClick={this.handleAddProduct}
+          >
+            <FiPlus />
+          </button>
         </div>
 
         <SearchInput
@@ -98,7 +130,7 @@ export class Products extends Component {
         />
         {isModalShow && (
           <Modal onModalClose={this.handleModalClose}>
-            <Cart defaultCounter={4} />
+            <Cart {...this.modalProduct} defaultCounter={1} />
           </Modal>
         )}
       </>
