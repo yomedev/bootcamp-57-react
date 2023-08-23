@@ -7,21 +7,31 @@ export class Cart extends Component {
   state = {
     plus: 0,
     minus: 0,
-    counter: this.props.defaultCounter,
+    counter: this.props.stock > 0 ? this.props.defaultCounter : 0,
   };
 
-  handlePlus = () => {
-    // this.setState({ counter: this.state.counter + 1 });
-    // this.setState((prevState) => {
-    //   return { counter: prevState.counter + 1 };
-    // });
-    // this.setState((prevState) => ({ counter: prevState.counter + 1 }));
-    this.setState((prevState) => ({ counter: prevState.counter + 1 }));
+  // componentDidMount() {
+  //   console.log("componentDidMount");
+  // }
 
-    // this.setState({ counter: 10 }, () => console.log("after:", this.state.counter));
+  // componentDidUpdate() {
+  //   console.log("componentDidUpdate");
+  // }
+
+  // componentWillUnmount() {
+  //   console.log("componentWillUnmount");
+  // }
+
+  handlePlus = () => {
+    if (this.state.counter < this.props.stock) {
+      this.setState((prevState) => ({ counter: prevState.counter + 1 }));
+    } else {
+      alert("There's no available products");
+    }
   };
 
   handleMinus = () => {
+    if (this.state.counter > 0)
     this.setState({ counter: 1, value: 4 });
   };
 
@@ -33,11 +43,13 @@ export class Cart extends Component {
   };
 
   getTotal() {
-    return this.state.counter * 549
+    return this.state.counter * this.props.price;
   }
 
   render() {
     const { counter } = this.state;
+    const { thumbnail, title, brand, price, stock } = this.props;
+    console.log(stock);
     return (
       <section
         className="h-100 p-4 h-custom"
@@ -49,16 +61,16 @@ export class Cart extends Component {
 
         <div className="d-flex align-items-center mb-4 shadow-lg p-2 rounded">
           <img
-            src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            src={thumbnail}
             className="img-fluid"
             style={{ width: "150px" }}
             alt="Generic placeholder"
           />
 
           <div className="ms-3">
-            <h5 className="text-primary">iPhone 9</h5>
-            <h6 style={{ color: "#9e9e9e" }}>Apple</h6>
-            <p className="fw-bold mb-0 me-5 pe-3">549$</p>
+            <h5 className="text-primary">{title}</h5>
+            <h6 style={{ color: "#9e9e9e" }}>{brand}</h6>
+            <p className="fw-bold mb-0 me-5 pe-3">{price}$</p>
           </div>
         </div>
         <div className="d-flex justify-content-center align-items-center mb-4 gap-4">
@@ -73,6 +85,7 @@ export class Cart extends Component {
           <h4>{counter}</h4>
 
           <button
+            // disabled={this.props.stock === 0}
             name="plus"
             onClick={this.handlePlus}
             className="btn btn-outline-primary p-2 d-flex justify-content-center align-items-center"
@@ -99,7 +112,6 @@ export class Cart extends Component {
     );
   }
 }
-
 
 // export const Cart = () => {
 //   return (

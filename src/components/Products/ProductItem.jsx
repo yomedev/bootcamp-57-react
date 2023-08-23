@@ -54,7 +54,7 @@ export const ProductItem = ({
               <h5 className="mb-0">${price}</h5>
             </div>
             <button
-              onClick={onModalShow}
+              onClick={() => onModalShow(id)}
               type="button"
               className="btn btn-primary btn-lg me-4"
             >
