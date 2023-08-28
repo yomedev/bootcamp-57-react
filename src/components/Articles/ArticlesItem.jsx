@@ -1,8 +1,11 @@
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 import { cutString } from "../../helpers/cut-string";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export const ArticlesItem = ({ article }) => {
+  const {isLogin} = useContext(AuthContext)
   return (
     <div className="col-12 col-lg-6 col-xl-4 mb-4">
       <div className="card">
@@ -26,7 +29,7 @@ export const ArticlesItem = ({ article }) => {
             </li>
           </ul>
 
-          <div className="d-flex">
+          {isLogin && <div className="d-flex">
             <button type="button" className="btn btn-danger">
               Delete article
             </button>
@@ -34,7 +37,7 @@ export const ArticlesItem = ({ article }) => {
             <a href={article.url} className="btn btn-primary ms-3">
               Read article
             </a>
-          </div>
+          </div>}
         </div>
       </div>
     </div>
