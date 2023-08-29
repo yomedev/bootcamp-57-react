@@ -1,24 +1,44 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from '../../../Button';
-import { Modal } from '../../../Modal';
-import { TimerModal } from '../../../Timer/TimerModal';
+import { Button } from "../../../Button";
+import { Modal } from "../../../Modal";
+import { TimerModal } from "../../../Timer/TimerModal";
+import { useContext } from "react";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export const Nav = () => {
   const [isTimerOpen, setIsTimerOpen] = useState(false);
-  const toggleTimer = () => setIsTimerOpen(prev => !prev);
+  const toggleTimer = () => setIsTimerOpen((prev) => !prev);
+
+  const { logout } = useContext(AuthContext);
+
+  const handleClick = () => {
+    logout();
+  };
 
   return (
     <div className="d-flex flex-column justify-content-between h-100">
       <div className="d-flex flex-column justify-content-between">
         <h2 className="h3 mb-4">Welcome back!</h2>
-        <Button style={{ textAlign: 'left', marginLeft: '-10px' }} className="btn-light" disabled>
+        <Button
+          style={{ textAlign: "left", marginLeft: "-10px" }}
+          className="btn-light"
+          disabled
+        >
           Home page
         </Button>
-        <Button style={{ textAlign: 'left', marginLeft: '-10px' }} className="btn-light" disabled>
+        <Button
+          style={{ textAlign: "left", marginLeft: "-10px" }}
+          className="btn-light"
+          disabled
+        >
           Create new post
         </Button>
-        <Button style={{ textAlign: 'left', marginLeft: '-10px' }} className="btn-light" onClick={toggleTimer}>
+        <Button
+          style={{ textAlign: "left", marginLeft: "-10px" }}
+          className="btn-light"
+          onClick={toggleTimer}
+        >
           Open timer
         </Button>
       </div>
@@ -29,7 +49,9 @@ export const Nav = () => {
         </Modal>
       )}
 
-      <Button className="btn-danger mt-auto">Log Out</Button>
+      <Button onClick={handleClick} className="btn-danger mt-auto">
+        Log Out
+      </Button>
     </div>
   );
 };

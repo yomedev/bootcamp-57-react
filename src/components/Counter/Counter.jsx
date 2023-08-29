@@ -2,19 +2,15 @@ import { useEffect } from "react";
 import AndroidIcon from "../AndroidIcon/AndroidIcon";
 import AppleIcon from "../AppleIcon/AppleIcon";
 import { useState } from "react";
+import { getLocalData } from "../../helpers/getLocalData";
 
 const LOCAL_STORAGE_PHONES_KEY = "phones";
 
-const getLocalData = (key, defaultValue = 0) => {
-  const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PHONES_KEY));
-  return localData ? localData[key] : defaultValue;
-};
-
 const Counter = ({ defaultAndroid }) => {
   const [android, setAndroid] = useState(
-    getLocalData("android", defaultAndroid)
+    getLocalData(LOCAL_STORAGE_PHONES_KEY, "android", defaultAndroid)
   ); // 10 => 20
-  const [iphone, setIphone] = useState(getLocalData("iphone"));
+  const [iphone, setIphone] = useState(getLocalData(LOCAL_STORAGE_PHONES_KEY, "iphone", 0));
 
   useEffect(() => {
     localStorage.setItem(
