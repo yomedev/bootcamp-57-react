@@ -3,9 +3,10 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { cutString } from "../../helpers/cut-string";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export const ArticlesItem = ({ article }) => {
-  const {isLogin} = useContext(AuthContext)
+  const { isLogin } = useContext(AuthContext);
   return (
     <div className="col-12 col-lg-6 col-xl-4 mb-4">
       <div className="card">
@@ -29,15 +30,17 @@ export const ArticlesItem = ({ article }) => {
             </li>
           </ul>
 
-          {isLogin && <div className="d-flex">
-            <button type="button" className="btn btn-danger">
-              Delete article
-            </button>
+          {isLogin && (
+            <div className="d-flex">
+              <button type="button" className="btn btn-danger">
+                Delete article
+              </button>
 
-            <a href={article.url} className="btn btn-primary ms-3">
-              Read article
-            </a>
-          </div>}
+              <Link to={article.title} className="btn btn-primary ms-3">
+                Read article
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
