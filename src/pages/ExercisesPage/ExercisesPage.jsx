@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const subPages = [
@@ -17,7 +18,9 @@ export const ExercisesPage = () => {
           </li>
         ))}
       </ul>
-      <Outlet />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
