@@ -4,10 +4,15 @@ import { toast } from "react-toastify";
 
 import { Loader } from "../../components/Loader";
 import { getSingeArticleService } from "../../services/articlesServices";
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 
 export const SingleArticlePage = () => {
   const { articleId } = useParams();
+
+  const location = useLocation();
+  
+  console.log(location.state);
+  const prevLocation = location.state?.from ?? "/articles";
 
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +35,9 @@ export const SingleArticlePage = () => {
   return (
     article && (
       <>
+        <Link to={prevLocation} className="btn btn-primary my-3">
+          Back
+        </Link>
         <img
           src={article.urlToImage || "/default_image.png"}
           alt={article.title}
@@ -40,7 +48,10 @@ export const SingleArticlePage = () => {
 
         <div>{article.description}</div>
 
-        {/* <div dangerouslySetInnerHTML={{ __html: article.content.replace(/\n/g, '<br/>') }} /> */}
+        <Link to="comments" state={location.state} className="btn btn-primary my-4">
+          Vew post comments
+        </Link>
+        <Outlet />
       </>
     )
   );

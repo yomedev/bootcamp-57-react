@@ -4,26 +4,24 @@ import { ArticlesSearch } from "../../components/Articles/ArticlesSearch";
 import { ArticlesLoader } from "../../components/Articles/ArticlesLoader";
 import { ArticlesError } from "../../components/Articles/ArticlesError/ArticlesError";
 import { getArticles } from "../../services/articlesServices";
-import { useState } from "react";
 import { useCallback } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { fetchStatus } from "../../constants/fetchStatus";
+import { useSearchParams } from "react-router-dom";
 
 export const ArticlesPage = () => {
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page") ?? 1;
+  const queryParam = searchParams.get("query") ?? "";
+
+  const queryParams = Object.fromEntries([...searchParams]);
 
   const fetchArticles = useCallback(
-    () => getArticles(query, page),
-    [page, query]
+    () => getArticles(queryParam, pageParam),
+    [pageParam, queryParam]
   );
 
   const { data, status } = useFetch(fetchArticles);
-
-  const handleSearch = (query) => {
-    setQuery(query);
-    setPage(1);
-  };
 
   if (status === fetchStatus.Loading || status === fetchStatus.Idle) {
     return <ArticlesLoader />;
@@ -37,7 +35,7 @@ export const ArticlesPage = () => {
 
   return (
     <>
-      <ArticlesSearch onSubmitSearch={handleSearch} />
+      <ArticlesSearch />
       <div className="container-fluid g-0">
         <div className="row">
           {articles?.map((article) => (
@@ -50,8 +48,10 @@ export const ArticlesPage = () => {
         <div className="btn-group my-4 mx-auto btn-group-lg">
           {[...Array(5)].map((_, index) => (
             <Button
-              onClick={() => setPage(index + 1)}
-              disabled={index + 1 === page}
+              onClick={() =>
+                setSearchParams({ ...queryParams, page: index + 1 })
+              }
+              disabled={index + 1 === pageParam}
               key={index}
             >
               {index + 1}
