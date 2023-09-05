@@ -3,9 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { lazy } from "react";
 
 import LoginPage from "./pages/LoginPage";
-// import ProductsPage from "./pages/ExercisesPage/ProductsPage";
-// import CounterPage from "./pages/ExercisesPage/CounterPage";
-// import ExercisesPage from "./pages/ExercisesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SingleArticlePage from "./pages/SingleArticlePage";
 import CommentsPage from "./pages/SingleArticlePage/CommentsPage";

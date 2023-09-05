@@ -3,15 +3,18 @@ import App from "./App";
 import React from "react";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
-import { store } from "./redux/store";
+import { persistore, store } from "./redux/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <PersistGate persistor={persistore}>
+      <App />
+    </PersistGate>
   </Provider>
   // </React.StrictMode>
 );

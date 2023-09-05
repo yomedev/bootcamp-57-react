@@ -1,50 +1,38 @@
-export const CategoryFilter = ({ category, onChangeCategory }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { changeCategory } from "../../redux/products/productsSlice";
+
+const categories = [
+  { label: "All", value: "all" },
+  { label: "Smartphones", value: "smartphones" },
+  { label: "Laptops", value: "laptops" },
+  { label: "Watches", value: "watches" },
+];
+
+export const CategoryFilter = () => {
+  const category = useSelector((state) => state.products.category);
+  const dispatch = useDispatch();
   return (
     <fieldset className="ms-5">
       <legend>Categories:</legend>
 
       <div className="d-flex">
-        <div className="form-check me-4">
-          <label className="form-check-label">
-            <span>Smartphones</span>
-            <input
-              checked={"smartphones" === category}
-              value={"smartphones"}
-              onChange={onChangeCategory}
-              className="form-check-input"
-              type="radio"
-              name="skil"
-            />
-          </label>
-        </div>
-
-        <div className="form-check me-4">
-          <label className="form-check-label">
-            <span>Laptops</span>
-            <input
-              checked={"laptops" === category}
-              value={"laptops"}
-              onChange={onChangeCategory}
-              className="form-check-input"
-              type="radio"
-              name="skil"
-            />
-          </label>
-        </div>
-
-        <div className="form-check me-4">
-          <label className="form-check-label">
-            <span>Watches</span>
-            <input
-              checked={"watches" === category}
-              value={"watches"}
-              onChange={onChangeCategory}
-              className="form-check-input"
-              type="radio"
-              name="skil"
-            />
-          </label>
-        </div>
+        {categories.map(({ label, value }) => (
+          <div key={value} className="form-check me-4">
+            <label className="form-check-label">
+              <span>{label}</span>
+              <input
+                checked={value === category}
+                value={value}
+                onChange={(event) =>
+                  dispatch(changeCategory(event.target.value))
+                }
+                className="form-check-input"
+                type="radio"
+                name="skil"
+              />
+            </label>
+          </div>
+        ))}
       </div>
     </fieldset>
   );
