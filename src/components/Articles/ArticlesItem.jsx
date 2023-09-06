@@ -4,22 +4,22 @@ import { cutString } from "../../helpers/cut-string";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Link, useLocation } from "react-router-dom";
-import { deleteArticleService } from "../../services/articlesServices";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { deleteArticle } from "../../redux/articles/articlesOperations";
 
 export const ArticlesItem = ({ article }) => {
   const { isLogin } = useContext(AuthContext);
 
   const location = useLocation();
 
+  const dispatch  = useDispatch()
+
   if (!article) {
     return;
   }
 
   const handleDelete = () => {
-    deleteArticleService(article.id)
-      .then(() => toast.success("Article deleted successfully"))
-      .catch(() => toast.error("Something went wrong"));
+    dispatch(deleteArticle(article.id))
   };
 
   return (
