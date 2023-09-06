@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SingleArticlePage from "./pages/SingleArticlePage";
 import CommentsPage from "./pages/SingleArticlePage/CommentsPage";
+import { MiddlewarePage } from "./pages/ExercisesPage/MiddlewarePage/MiddlewarePage";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const ArticlesPage = lazy(() => import("./pages/ArticlesPage"));
 const ExercisesPage = lazy(() => import("./pages/ExercisesPage"));
@@ -34,6 +35,7 @@ const App = () => {
               <Route index element={<Navigate to="products" />} />
               <Route path="products" element={<ProductsPage />} />
               <Route path="counter" element={<CounterPage />} />
+              <Route path="middleware" element={<MiddlewarePage />} />
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

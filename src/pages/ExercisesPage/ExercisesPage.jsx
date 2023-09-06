@@ -4,6 +4,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const subPages = [
   { href: "products", title: "Products" },
   { href: "counter", title: "Counter" },
+  { href: "middleware", title: "Middleware" },
 ];
 
 export const ExercisesPage = () => {
