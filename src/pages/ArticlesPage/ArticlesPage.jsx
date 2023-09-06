@@ -3,11 +3,11 @@ import { ArticlesItem } from "../../components/Articles/ArticlesItem";
 import { ArticlesSearch } from "../../components/Articles/ArticlesSearch";
 import { ArticlesLoader } from "../../components/Articles/ArticlesLoader";
 import { ArticlesError } from "../../components/Articles/ArticlesError/ArticlesError";
-import { getArticles } from "../../services/articlesServices";
-import { useCallback } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useEffect } from "react";
 import { fetchStatus } from "../../constants/fetchStatus";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getArticles } from "../../redux/articles/articlesOperations";
 
 export const ArticlesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,12 +16,21 @@ export const ArticlesPage = () => {
 
   const queryParams = Object.fromEntries([...searchParams]);
 
-  const fetchArticles = useCallback(
-    () => getArticles(queryParam, pageParam),
-    [pageParam, queryParam]
-  );
+  const articles = useSelector((state) => state.articles.data);
+  const status = useSelector((state) => state.articles.status);
 
-  const { data, status } = useFetch(fetchArticles);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getArticles());
+  }, [dispatch, pageParam, queryParam]);
+
+  // const fetchArticles = useCallback(
+  //   () => getArticlesService(queryParam, pageParam),
+  //   [pageParam, queryParam]
+  // );
+
+  // const { data: articles, status } = useFetch(fetchArticles);
 
   if (status === fetchStatus.Loading || status === fetchStatus.Idle) {
     return <ArticlesLoader />;
@@ -31,7 +40,7 @@ export const ArticlesPage = () => {
     return <ArticlesError />;
   }
 
-  const { articles } = data;
+  // const { articles } = data;
 
   return (
     <>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Loader } from "../../components/Loader";
-import { getSingeArticleService } from "../../services/articlesServices";
+import { getSingleArticleService } from "../../services/articlesServices";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 
 export const SingleArticlePage = () => {
@@ -20,7 +20,7 @@ export const SingleArticlePage = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    getSingeArticleService(articleId)
+    getSingleArticleService(articleId)
       .then(setArticle)
       .catch(() => {
         toast.error("Something went wrong!");
