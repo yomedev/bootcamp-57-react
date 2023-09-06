@@ -9,7 +9,7 @@ export const Nav = () => {
   const handleClick = () => {
     logout();
   };
-  // domen/login/article
+
   return (
     <div className="d-flex flex-column justify-content-between h-100">
       <div className="d-flex flex-column justify-content-between">
@@ -31,6 +31,15 @@ export const Nav = () => {
           }
         >
           Articles List
+        </NavLink>
+        <NavLink
+          to="/new-article"
+          style={{ textAlign: "left", marginLeft: "-10px" }}
+          className={({ isActive }) =>
+            isActive ? "btn btn-primary" : "btn btn-light"
+          }
+        >
+          Create Article
         </NavLink>
         <NavLink
           to="/login"

@@ -4,6 +4,8 @@ import { cutString } from "../../helpers/cut-string";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Link, useLocation } from "react-router-dom";
+import { deleteArticleService } from "../../services/articlesServices";
+import { toast } from "react-toastify";
 
 export const ArticlesItem = ({ article }) => {
   const { isLogin } = useContext(AuthContext);
@@ -13,6 +15,12 @@ export const ArticlesItem = ({ article }) => {
   if (!article) {
     return;
   }
+
+  const handleDelete = () => {
+    deleteArticleService(article.id)
+      .then(() => toast.success("Article deleted successfully"))
+      .catch(() => toast.error("Something went wrong"));
+  };
 
   return (
     <div className="col-12 col-lg-6 col-xl-4 mb-4">
@@ -39,13 +47,17 @@ export const ArticlesItem = ({ article }) => {
 
           {isLogin && (
             <div className="d-flex">
-              <button type="button" className="btn btn-danger">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={handleDelete}
+              >
                 Delete article
               </button>
 
               <Link
                 state={{ from: location }}
-                to={article.title}
+                to={article.id}
                 className="btn btn-primary ms-3"
               >
                 Read article

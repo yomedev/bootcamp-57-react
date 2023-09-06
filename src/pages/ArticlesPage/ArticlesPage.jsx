@@ -3,7 +3,7 @@ import { ArticlesItem } from "../../components/Articles/ArticlesItem";
 import { ArticlesSearch } from "../../components/Articles/ArticlesSearch";
 import { ArticlesLoader } from "../../components/Articles/ArticlesLoader";
 import { ArticlesError } from "../../components/Articles/ArticlesError/ArticlesError";
-import { getArticles } from "../../services/articlesServices";
+import { getArticlesService } from "../../services/articlesServices";
 import { useCallback } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { fetchStatus } from "../../constants/fetchStatus";
@@ -17,11 +17,11 @@ export const ArticlesPage = () => {
   const queryParams = Object.fromEntries([...searchParams]);
 
   const fetchArticles = useCallback(
-    () => getArticles(queryParam, pageParam),
+    () => getArticlesService(queryParam, pageParam),
     [pageParam, queryParam]
   );
 
-  const { data, status } = useFetch(fetchArticles);
+  const { data: articles, status } = useFetch(fetchArticles);
 
   if (status === fetchStatus.Loading || status === fetchStatus.Idle) {
     return <ArticlesLoader />;
@@ -31,7 +31,7 @@ export const ArticlesPage = () => {
     return <ArticlesError />;
   }
 
-  const { articles } = data;
+  // const { articles } = data;
 
   return (
     <>
