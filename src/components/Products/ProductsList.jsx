@@ -1,41 +1,31 @@
 import { useSelector } from "react-redux";
 import { NotFoundProducts } from "./NotFoundProducts";
 import { ProductItem } from "./ProductItem";
-import { useMemo } from "react";
+import { selectFilteredProducts, selectTotalWithDiscount } from "../../redux/products/productsSelectors";
+import { useState } from "react";
 
 export const ProductsList = () => {
-  const products = useSelector((state) => state.products.items);
-  const search = useSelector((state) => state.products.search);
-  const isInStock = useSelector((state) => state.products.isInStock);
-  const category = useSelector((state) => state.products.category);
+  const [counter, setCounter] = useState(0);
+  const filteredProducts = useSelector(selectFilteredProducts)
 
-  const filteredProducts = useMemo(() => {
-    let filteredProducts = [...products];
-    filteredProducts = filteredProducts.filter(({ title }) =>
-      title.toLowerCase().includes(search.toLowerCase().trim())
-    );
-    if (isInStock) {
-      filteredProducts = filteredProducts.filter(({ stock }) => stock);
-    }
-    if (category !== "all") {
-      filteredProducts = filteredProducts.filter(
-        (item) => item.category === category
-      );
-    }
-    return filteredProducts;
-  }, [products, search, isInStock, category]);
+  const totalWithDiscount = useSelector(selectTotalWithDiscount)
 
-  if (!products.length) {
+  if (!filteredProducts.length) {
     return <NotFoundProducts />;
   }
 
   return (
     <section className="h-100 h-custom">
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => setCounter((prev) => prev + 1)}
+      >
+        {counter}
+      </button>
+      <p>Total with discount: {totalWithDiscount}</p>
       {filteredProducts.map((product) => (
-        <ProductItem
-          key={product.id}
-          {...product}
-        />
+        <ProductItem key={product.id} {...product} />
       ))}
     </section>
   );

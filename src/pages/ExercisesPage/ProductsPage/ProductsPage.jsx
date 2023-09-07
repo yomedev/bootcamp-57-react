@@ -8,9 +8,11 @@ import { Cart } from "../../../components/Cart/Cart";
 import { FiPlus } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../../redux/products/productsSlice";
+import { selectIsModalOpen } from "../../../redux/products/productsSelectors";
 
 export const ProductsPage = () => {
-  const isModalOpen = useSelector((state) => state.products.isModalOpen);
+
+  const isModalOpen = useSelector(selectIsModalOpen);
   const dispatch = useDispatch();
 
   const handleAddProduct = () => {
@@ -20,6 +22,7 @@ export const ProductsPage = () => {
 
   return (
     <>
+      
       <div className="d-flex align-items-center mb-5">
         <InStockFilter />
         <CategoryFilter />
@@ -30,7 +33,7 @@ export const ProductsPage = () => {
         >
           <FiPlus />
         </button>
-      </div>  
+      </div>
 
       <SearchInput />
       <ProductsList />
