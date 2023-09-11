@@ -114,7 +114,7 @@ const articles = [
 
 export const getArticleInfo = () => {
   return {
-    publishedAt: articles[getRandomIndex()].publishedAt,
+    // publishedAt: articles[getRandomIndex()].publishedAt,
     author: articles[getRandomIndex()].author,
     title: articles[getRandomIndex()].title,
     urlToImage: articles[getRandomIndex()].urlToImage,

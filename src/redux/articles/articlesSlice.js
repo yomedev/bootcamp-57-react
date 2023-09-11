@@ -36,7 +36,7 @@ const articlesSlice = createSlice({
         // state.data.push(payload);
       })
       .addCase(deleteArticle.fulfilled, (state, { payload }) => {
-        state.data = state.data.filter(({ id }) => id !== payload.id);
+        state.data = state.data.filter(({ _id }) => _id !== payload.id);
       });
   },
 });

@@ -7,14 +7,13 @@ import { getArticleInfo } from "./helpers";
 import { createArticleService } from "../../services/articlesServices";
 import { useNavigate } from "react-router-dom";
 
-const { title, content, author, urlToImage, publishedAt } = getArticleInfo();
+const { title, content, author, urlToImage } = getArticleInfo();
 
 const initialState = {
   title,
   content,
   urlToImage,
   author,
-  publishedAt,
 };
 
 export const NewArticlePage = () => {

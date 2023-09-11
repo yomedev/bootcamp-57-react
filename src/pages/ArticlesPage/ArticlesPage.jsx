@@ -48,7 +48,7 @@ export const ArticlesPage = () => {
       <div className="container-fluid g-0">
         <div className="row">
           {articles?.map((article) => (
-            <ArticlesItem key={article.url} article={article} />
+            <ArticlesItem key={article._id} article={article} />
           ))}
         </div>
       </div>

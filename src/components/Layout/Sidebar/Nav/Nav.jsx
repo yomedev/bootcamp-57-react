@@ -1,19 +1,18 @@
+import { useSelector } from "react-redux";
 import { Button } from "../../../Button";
-import { useContext } from "react";
-import { AuthContext } from "../../../../context/AuthContext";
 import { NavLink } from "react-router-dom";
+import { selectUserName } from "../../../../redux/users/usersSelectors";
 
 export const Nav = () => {
-  const { logout } = useContext(AuthContext);
-
+  
+  const userName = useSelector(selectUserName)
   const handleClick = () => {
-    logout();
   };
 
   return (
     <div className="d-flex flex-column justify-content-between h-100">
       <div className="d-flex flex-column justify-content-between">
-        <h2 className="h3 mb-4">Welcome back!</h2>
+        <h2 className="h3 mb-4">Welcome back, {userName}!</h2>
         <NavLink
           to="/"
           style={{ textAlign: "left", marginLeft: "-10px" }}
@@ -40,15 +39,6 @@ export const Nav = () => {
           }
         >
           Create Article
-        </NavLink>
-        <NavLink
-          to="/login"
-          style={{ textAlign: "left", marginLeft: "-10px" }}
-          className={({ isActive }) =>
-            isActive ? "btn btn-primary" : "btn btn-light"
-          }
-        >
-          Login
         </NavLink>
         <NavLink
           to="/exercises"

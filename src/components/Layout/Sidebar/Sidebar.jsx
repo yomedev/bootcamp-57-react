@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { Login } from "./Login/Login";
+import { useSelector } from "react-redux";
 import { Nav } from "./Nav";
-import { AuthContext } from "../../../context/AuthContext";
+import { NotAuth } from "./NotAuth";
+import { selectToken } from "../../../redux/users/usersSelectors";
 
 export const Sidebar = () => {
-  const { isLogin } = useContext(AuthContext);
+  const token = useSelector(selectToken)
   return (
     <aside
       className="nav nav-pills p-5 bg-light col-2"
@@ -14,7 +14,7 @@ export const Sidebar = () => {
         className="d-flex flex-column"
         style={{ position: "sticky", top: 30, left: 0, height: "88vh" }}
       >
-        {isLogin ? <Nav /> : <Login />}
+        {token ? <Nav /> : <NotAuth />}
       </div>
     </aside>
   );

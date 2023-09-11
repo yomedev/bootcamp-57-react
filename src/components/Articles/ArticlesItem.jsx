@@ -19,7 +19,7 @@ export const ArticlesItem = ({ article }) => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteArticle(article.id))
+    dispatch(deleteArticle(article._id))
   };
 
   return (
@@ -36,12 +36,12 @@ export const ArticlesItem = ({ article }) => {
         <div className="card-body">
           <h5 className="card-title">{article.title}</h5>
 
-          <p className="card-text">{cutString(article.description, 60)}</p>
+          <p className="card-text">{cutString(article.content, 60)}</p>
 
           <ul className="list-group list-group-flush mb-4">
             <li className="list-group-item">Author: {article.author}</li>
             <li className="list-group-item">
-              Created: {formatDistanceToNow(new Date(article.publishedAt))}
+              Created: {formatDistanceToNow(new Date(article.createdAt))}
             </li>
           </ul>
 
@@ -57,7 +57,7 @@ export const ArticlesItem = ({ article }) => {
 
               <Link
                 state={{ from: location }}
-                to={article.id}
+                to={article._id}
                 className="btn btn-primary ms-3"
               >
                 Read article
