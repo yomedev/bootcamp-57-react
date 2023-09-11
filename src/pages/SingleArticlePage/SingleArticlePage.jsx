@@ -46,7 +46,7 @@ export const SingleArticlePage = () => {
         />
         <h1 className="mb-5">{article.title}</h1>
 
-        <div>{article.description}</div>
+        <div>{article.content}</div>
 
         <Link to="comments" state={location.state} className="btn btn-primary my-4">
           Vew post comments

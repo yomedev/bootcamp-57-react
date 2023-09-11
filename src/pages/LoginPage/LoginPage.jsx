@@ -1,7 +1,9 @@
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { loginThunk } from "../../redux/users/usersThunk";
+import { toast } from "react-toastify";
+import { token } from "../../services/usersServices";
 
 const year = new Date().getFullYear();
 
@@ -11,20 +13,23 @@ export const LoginPage = () => {
     password: "",
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { login } = useContext(AuthContext);
 
   const handleChange = (event) => {
     setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(form);
-    login(form.email, form.password);
-    setForm({ email: "", password: "" });
-    navigate("/articles", { replace: true});
+    try {
+      const data = await dispatch(loginThunk(form)).unwrap();
+      token.set(data.token);
+      navigate("/", { replace: true });
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -59,6 +64,10 @@ export const LoginPage = () => {
           />
           <label htmlFor="pass">Password</label>
         </div>
+
+        <Link to="/join" className="d-block my-4">
+          Dont have account?
+        </Link>
 
         <button className="w-100 btn btn-lg btn-primary mt-4" type="submit">
           Sign in
