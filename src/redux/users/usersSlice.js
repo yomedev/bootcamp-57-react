@@ -13,6 +13,9 @@ const initialState = {
 const usersSlice = createSlice({
   name: "users",
   initialState,
+  reducers: {
+    logoutAction: () => initialState
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerThunk.pending, (state) => {
@@ -70,8 +73,12 @@ const usersSlice = createSlice({
         state.status = fetchStatus.Error;
         state.isLoading = false;
         state.isError = true;
-      });
+        state.token = ''
+        state.user = null
+      })
+      // .addCase(logoutThunk.fulfilled, () => initialState)
   },
 });
 
 export const usersReducer = usersSlice.reducer;
+export const {logoutAction} = usersSlice.actions

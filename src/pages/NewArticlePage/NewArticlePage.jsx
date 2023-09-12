@@ -6,19 +6,22 @@ import { Loader } from "../../components/Loader";
 import { getArticleInfo } from "./helpers";
 import { createArticleService } from "../../services/articlesServices";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUserName } from "../../redux/users/usersSelectors";
 
-const { title, content, author, urlToImage } = getArticleInfo();
+const { title, content, urlToImage } = getArticleInfo();
 
 const initialState = {
   title,
   content,
   urlToImage,
-  author,
 };
 
 export const NewArticlePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState(() => getArticleInfo());
+
+  const userName = useSelector(selectUserName);
 
   const navigate = useNavigate();
 
@@ -38,10 +41,10 @@ export const NewArticlePage = () => {
       return;
     }
     setIsLoading(true);
-    createArticleService(form)
+    createArticleService({ ...form, author: userName })
       .then((data) => {
         toast.success("Article was successfully created!");
-        navigate(`/articles/${data.id}`);
+        navigate(`/articles/${data._id}`);
       })
       .catch(() => toast.error("Something went wrong"))
       .finally(() => setIsLoading(false));

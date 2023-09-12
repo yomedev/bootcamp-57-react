@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { registerThunk } from "../../redux/users/usersThunk";
+import { selectUsersIsError } from "../../redux/users/usersSelectors";
 import { toast } from "react-toastify";
-import { token } from "../../services/usersServices";
 
 const year = new Date().getFullYear();
 const initialState = {
@@ -16,8 +16,9 @@ export const JoinPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState(initialState);
 
+  const isError = useSelector(selectUsersIsError);
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -26,16 +27,13 @@ export const JoinPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(values);
-    dispatch(registerThunk(values))
-      .unwrap()
-      .then((data) => {
-        console.log(data);
-        token.set(data.token)
-        navigate("/", { replace: true });
-      })
-      .catch((error) => toast.error(error.message));
+    dispatch(registerThunk(values));
+    setIsLoading(true);
   };
+
+  if (isError) {
+    toast.error("Something went wrong");
+  }
 
   return (
     <>
