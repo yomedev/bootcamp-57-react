@@ -1,12 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../../Button";
 import { NavLink } from "react-router-dom";
 import { selectUserName } from "../../../../redux/users/usersSelectors";
+import { logoutAction } from "../../../../redux/users/usersSlice";
+import { token } from "../../../../services/http";
 
 export const Nav = () => {
-  
-  const userName = useSelector(selectUserName)
+  const userName = useSelector(selectUserName);
+
+  const dispatch = useDispatch();
   const handleClick = () => {
+    dispatch(logoutAction());
+    token.unset();
   };
 
   return (

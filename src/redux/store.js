@@ -28,6 +28,7 @@ const tokenPersistConfig = {
 };
 
 const persistedProductsReducer = persistReducer(persistConfig, productsReducer);
+
 const persistedUsersReducer = persistReducer(tokenPersistConfig, usersReducer);
 
 export const store = configureStore({

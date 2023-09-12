@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { loginThunk } from "../../redux/users/usersThunk";
-import { toast } from "react-toastify";
-import { token } from "../../services/usersServices";
 
 const year = new Date().getFullYear();
 
@@ -14,22 +12,14 @@ export const LoginPage = () => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(form);
-    try {
-      const data = await dispatch(loginThunk(form)).unwrap();
-      token.set(data.token);
-      navigate("/", { replace: true });
-    } catch (error) {
-      toast.error(error.message);
-    }
+    dispatch(loginThunk(form));
   };
 
   return (
